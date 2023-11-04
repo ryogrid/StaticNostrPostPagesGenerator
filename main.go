@@ -38,6 +38,13 @@ var htmlBaseTail = `
 </html>
 `
 
+func convertNRCharToBRTag(str string) string {
+	contentAddedBR := strings.Replace(str, "\n", "<br />", -1)
+	contentAddedBR = strings.Replace(contentAddedBR, "\r\n", "<br />", -1)
+	contentAddedBR = strings.Replace(contentAddedBR, "\r", "<br />", -1)
+	return strings.Replace(str, "\n", "<br />", -1)
+}
+
 func main() {
 	f, err := os.Open("./ryo_grid_posts_dump2.json")
 	if err != nil {
@@ -79,10 +86,7 @@ func main() {
 				outputHtml += dt.Format("2006/01/02 15:04:05")
 				outputHtml += "</strong></p><br/>"
 				outputHtml += "<p class='content'>"
-				contentAddedBR := strings.Replace(monthPost.Content, "\n", "<br>", -1)
-				contentAddedBR = strings.Replace(contentAddedBR, "\r\n", "<br>", -1)
-				contentAddedBR = strings.Replace(contentAddedBR, "\r", "<br>", -1)
-				outputHtml += contentAddedBR
+				outputHtml += convertNRCharToBRTag(monthPost.Content)
 				outputHtml += "</p><br/><br/>"
 			}
 			outputHtml += htmlBaseTail
