@@ -9,6 +9,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -78,7 +79,10 @@ func main() {
 				outputHtml += dt.Format("2006/01/02 15:04:05")
 				outputHtml += "</strong></p><br/>"
 				outputHtml += "<p class='content'>"
-				outputHtml += monthPost.Content
+				contentAddedBR := strings.Replace(monthPost.Content, "\n", "<br>", -1)
+				contentAddedBR = strings.Replace(contentAddedBR, "\r\n", "<br>", -1)
+				contentAddedBR = strings.Replace(contentAddedBR, "\r", "<br>", -1)
+				outputHtml += contentAddedBR
 				outputHtml += "</p><br/><br/>"
 			}
 			outputHtml += htmlBaseTail
